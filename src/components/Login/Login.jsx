@@ -2,6 +2,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import auth from "../../firebase/firebase.config";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { sendPasswordResetEmail } from "firebase/auth/cordova";
 
 
 const Login = () => {
@@ -33,10 +34,13 @@ const Login = () => {
             console.log('Please provide a valid email');
             return;
         }
-        else {
-            console.log('successful');
-            return;
-        }
+        sendPasswordResetEmail(auth, emailRef.current.value)
+        .then(() => {
+            alert('Please Check Your Email');
+        })
+        .catch(error => {
+            console.log(error);
+        })
     }
     return (
         <div className="hero bg-base-200 min-h-screen">
