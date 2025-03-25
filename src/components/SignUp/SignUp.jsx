@@ -32,6 +32,7 @@ const SignUp = () => {
             console.error(error);
             setRegisterError(error.message);
         })
+
     }
 
     const handleTermsAndConditions = (e) => {
