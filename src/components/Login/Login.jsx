@@ -21,6 +21,7 @@ const Login = () => {
             
             if (!result.user.emailVerified) {
                 alert('please verify your email');
+                return;
             }
             else {
                 setSuccessMessage('Successfully Logged In');

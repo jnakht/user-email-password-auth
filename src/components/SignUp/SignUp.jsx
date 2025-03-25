@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, sendEmailVerification, updateProfile } from "firebase/auth";
 import auth from "../../firebase/firebase.config";
 import { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
@@ -14,6 +14,7 @@ const SignUp = () => {
         setRegisterSuccess('');
         const userEmail = e.target.email.value;
         const userPassword = e.target.password.value;
+        const userName = e.target.name.value;
         console.log('submitted with email: ', userEmail + ' password: ', userPassword);
         if (userPassword.length < 6) {
             setRegisterError('Password Should be at least 6 characters long');
@@ -28,6 +29,13 @@ const SignUp = () => {
         .then(result => {
             console.log(result); 
             setRegisterSuccess('User Created Successfully');
+            
+            // update profile(name)
+            updateProfile(result.user, {
+                displayName: userName,
+            })
+            .then(() => console.log('profile updated'))
+            .catch(() => console.log("profile update failed"))
 
             // send email verification
             sendEmailVerification(result.user)
@@ -55,9 +63,10 @@ const SignUp = () => {
         <div className=" mt-[60px]">
             <h3 className="text-3xl mb-4">Please Register</h3>
             <form onSubmit={handleRegister} className=" flex flex-col relative">
+                <input className=" bg-slate-500 mb-4 py-2 px-4" type="text" placeholder="Your Name" name="name" id="" required />
                 <input className=" bg-slate-500 mb-4 py-2 px-4" type="email" placeholder="Email Address" name="email" id="" required />
                 <input className="bg-slate-500 mb-4 py-2 px-4" type={showPassword ? 'text' : 'password'} placeholder="Password" name="password" id="" required/>
-                <span onClick={() => setShowPassword(!showPassword)} className="absolute top-17 right-5">
+                <span onClick={() => setShowPassword(!showPassword)} className="absolute top-31 right-5">
                     {
                         showPassword ? <IoEye /> 
                         :
