@@ -6,7 +6,7 @@ const SignUp = () => {
     const [registerError, setRegisterError] = useState('');
     const [registerSuccess, setRegisterSuccess] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    
+    const [termsAccepted, setTermsAccepted] = useState(false);
     const handleRegister = e => {
         e.preventDefault();
         setRegisterError('');
@@ -33,6 +33,15 @@ const SignUp = () => {
             setRegisterError(error.message);
         })
     }
+
+    const handleTermsAndConditions = (e) => {
+        if(e.target.checked) {
+            setTermsAccepted(true);
+        }
+        else {
+            setTermsAccepted(false);
+        }
+    }
     return (
         <div className=" mt-[60px]">
             <h3 className="text-3xl mb-4">Please Register</h3>
@@ -46,7 +55,11 @@ const SignUp = () => {
                         <IoEyeOff />
                     }
                 </span>
-                <input className="btn btn-primary" type="submit" value="Submit" />
+                <div className="mt-4 mb-6 flex gap-2">
+                     <input onClick={handleTermsAndConditions} type="checkbox" defaultChecked           className="checkbox checkbox-success" />
+                     <p>Accept the Terms and Conditions</p>
+                </div>
+                <input disabled={!termsAccepted} className="btn btn-primary" type="submit" value="Submit" />
             </form>
             {
                 registerError && <p className="text-2xl text-red-700">{registerError}</p>
