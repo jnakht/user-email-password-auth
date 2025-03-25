@@ -1,11 +1,12 @@
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../../firebase/firebase.config";
 import { useState } from "react";
-
-
+import { IoEye, IoEyeOff } from "react-icons/io5";
 const SignUp = () => {
     const [registerError, setRegisterError] = useState('');
     const [registerSuccess, setRegisterSuccess] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
+    
     const handleRegister = e => {
         e.preventDefault();
         setRegisterError('');
@@ -35,9 +36,16 @@ const SignUp = () => {
     return (
         <div className=" mt-[60px]">
             <h3 className="text-3xl mb-4">Please Register</h3>
-            <form onSubmit={handleRegister} className=" flex flex-col">
+            <form onSubmit={handleRegister} className=" flex flex-col relative">
                 <input className=" bg-slate-500 mb-4 py-2 px-4" type="email" placeholder="Email Address" name="email" id="" required />
-                <input className="bg-slate-500 mb-4 py-2 px-4" type="password" placeholder="Password" name="password" id="" required/>
+                <input className="bg-slate-500 mb-4 py-2 px-4" type={showPassword ? 'text' : 'password'} placeholder="Password" name="password" id="" required/>
+                <span onClick={() => setShowPassword(!showPassword)} className="absolute top-17 right-5">
+                    {
+                        showPassword ? <IoEye /> 
+                        :
+                        <IoEyeOff />
+                    }
+                </span>
                 <input className="btn btn-primary" type="submit" value="Submit" />
             </form>
             {
