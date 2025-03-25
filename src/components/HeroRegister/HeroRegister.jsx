@@ -1,3 +1,5 @@
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import auth from "../../firebase/firebase.config";
 
 
 const HeroRegister = () => {
@@ -6,6 +8,13 @@ const HeroRegister = () => {
         const userEmail = e.target.email.value;
         const userPassword = e.target.password.value;
         console.log('hero register with email: ', userEmail + ' password: ', userPassword);
+        createUserWithEmailAndPassword(auth, userEmail, userPassword)
+        .then(result => {
+            console.log(result);
+        })
+        .catch(error => {
+            console.error(error);
+        })
     }
     return (
         <div className="hero bg-base-200 min-h-screen">
