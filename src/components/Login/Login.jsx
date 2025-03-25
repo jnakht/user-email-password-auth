@@ -1,6 +1,7 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import auth from "../../firebase/firebase.config";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 const Login = () => {
@@ -56,6 +57,7 @@ const Login = () => {
                                         <p className="text-3xl text-green-700">{successMessage}</p>
                                     </div>
                                 }
+                                <p>New Here? Please <Link to='/signUp'>Sign Up</Link></p>
                             </fieldset>
                         </div>
                     </form>

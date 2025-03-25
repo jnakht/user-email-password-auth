@@ -2,6 +2,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import auth from "../../firebase/firebase.config";
 import { useState } from "react";
 import { IoEye, IoEyeOff } from "react-icons/io5";
+import { Link } from "react-router-dom";
 const SignUp = () => {
     const [registerError, setRegisterError] = useState('');
     const [registerSuccess, setRegisterSuccess] = useState('');
@@ -57,7 +58,7 @@ const SignUp = () => {
                     }
                 </span>
                 <div className="mt-4 mb-6 flex gap-2">
-                     <input onClick={handleTermsAndConditions} type="checkbox" defaultChecked           className="checkbox checkbox-success" />
+                     <input onClick={handleTermsAndConditions} type="checkbox"           className="checkbox checkbox-success" />
                      <p>Accept the Terms and Conditions</p>
                 </div>
                 <input disabled={!termsAccepted} className="btn btn-primary" type="submit" value="Submit" />
@@ -68,6 +69,7 @@ const SignUp = () => {
             {
                 registerSuccess && <p className="text-2xl text-green-700">{registerSuccess}</p>
             }
+            <p>Already have an account? Please <Link to='/login'>Login</Link></p>
         </div>
     );
 };
